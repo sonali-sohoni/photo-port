@@ -19,7 +19,7 @@ const Nav = () => {
 	}
 	return (
 		<header>
-			<a href="/">
+			<a data-testid="link" href="/">
 				<span role="img" aria-label="camera">
 					📸
 				</span>
@@ -28,9 +28,11 @@ const Nav = () => {
 			<nav>
 				<ul className="flex-row">
 					<li className="mx-2">
-						<a href="#about">About Me</a>
+						<a data-testid="about" href="#about">
+							About Me
+						</a>
 					</li>
-					<li classname={"mx-2"}>
+					<li className={"mx-2"}>
 						<span>Contact</span>
 					</li>
 					{categories.map((category) => (
