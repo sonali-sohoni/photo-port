@@ -24,21 +24,31 @@ function App() {
 
 	const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
+	const [contactSelected, setContactSelected] = useState(false);
+
 	return (
 		<div>
 			<Nav
 				currentCategory={currentCategory}
 				setCurrentCategory={setCurrentCategory}
 				categories={categories}
+				contactSelected={contactSelected}
+				setContactSelected={setContactSelected}
 			/>
 			<main>
-				<Contact />
-				<Gallery
-					currentCategory={currentCategory}
-					setCurrentCategory={setCurrentCategory}
-					categories={categories}
-				/>
-				<About />
+				{!contactSelected ? (
+					<>
+						{/* React fragment*/}
+						<Gallery
+							currentCategory={currentCategory}
+							setCurrentCategory={setCurrentCategory}
+							categories={categories}
+						/>
+						<About />
+					</>
+				) : (
+					<Contact />
+				)}
 			</main>
 		</div>
 	);

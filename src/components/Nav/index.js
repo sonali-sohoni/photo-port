@@ -1,16 +1,22 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
-const Nav = ({ currentCategory, setCurrentCategory, categories }) => {
+const Nav = ({
+	currentCategory,
+	setCurrentCategory,
+	categories,
+	contactSelected,
+	setContactSelected,
+}) => {
 	function categorySelected(cat) {
 		console.log(`hello ${cat.name}`);
 		setCurrentCategory(cat);
-  }
-  
-  useEffect(() => {
-    document.title = capitalizeFirstLetter(currentCategory.name)
-  },[currentCategory]) //causes rendering of the component
+	}
+
+	useEffect(() => {
+		document.title = capitalizeFirstLetter(currentCategory.name);
+	}, [currentCategory]); //causes rendering of the component
 
 	return (
 		<header>
@@ -23,20 +29,33 @@ const Nav = ({ currentCategory, setCurrentCategory, categories }) => {
 			<nav>
 				<ul className="flex-row">
 					<li className="mx-2">
-						<a data-testid="about" href="#about">
+						<a
+							data-testid="about"
+							href="#about"
+							onClick={() => setContactSelected(false)}
+						>
 							About Me
 						</a>
 					</li>
-					<li className={"mx-2"}>
-						<span>Contact</span>
+					<li className={`mx-2 ${contactSelected && "navActive"}`}>
+						<span onClick={() => setContactSelected(true)}>Contact</span>
 					</li>
 					{categories.map((category) => (
 						<li
 							className={`mx-1
-            ${category.name === currentCategory.name && "navActive"}`}
+            ${
+							category.name === currentCategory.name &&
+							!contactSelected &&
+							"navActive"
+						}`}
 							key={category.name}
 						>
-							<span onClick={() => categorySelected(category)}>
+							<span
+								onClick={() => {
+									categorySelected(category);
+									contactSelected(false);
+								}}
+							>
 								{capitalizeFirstLetter(category.name)}
 							</span>
 						</li>
