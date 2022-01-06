@@ -5,6 +5,7 @@ import Gallery from "./components/Gallery";
 import Nav from "./components/Nav";
 import Content from "./Content";
 import { useState } from "react";
+import Contact from "./components/Contact";
 
 function App() {
 	const [categories] = useState([
@@ -31,7 +32,7 @@ function App() {
 				categories={categories}
 			/>
 			<main>
-				<Content />
+				<Contact />
 				<Gallery
 					currentCategory={currentCategory}
 					setCurrentCategory={setCurrentCategory}
