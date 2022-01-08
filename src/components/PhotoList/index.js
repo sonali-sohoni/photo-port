@@ -1,6 +1,7 @@
 import React from "react";
 import photo from "../../assets/small/commercial/0.jpg";
 import { useState } from "react";
+import Modal from "../Modal";
 const PhotoList = ({ currentCategory }) => {
 	const [photos] = useState([
 		{
@@ -118,25 +119,38 @@ const PhotoList = ({ currentCategory }) => {
 				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ultricie",
 		},
 	]);
+
+	const [currentPhoto, setCurrentPhoto] = useState(); //currentPhoto is the object containing image and its index
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	function getPhotoList() {
 		console.log(currentCategory);
 		const photoListByCategory = photos.filter(
 			(item) => item.category === currentCategory.name
 		);
-    console.log(photoListByCategory);
-    return photoListByCategory;
+		console.log(photoListByCategory);
+		return photoListByCategory;
 	}
+
+	function toggleModal(image, i) {
+		console.log("toggleModal() called");
+		console.log(image);
+		setCurrentPhoto({ ...image, index: i });
+		setIsModalOpen(true);
+	}
+
 	return (
 		<div>
+			{isModalOpen && <Modal currentPhoto={currentPhoto} />}
 			<div className="flex-row">
 				{getPhotoList().map((image, i) => (
 					<img
-						src={
-							require(`../../assets/small/${image.category}/${i}.jpg`)
-						}
+						src={require(`../../assets/small/${image.category}/${i}.jpg`)}
 						alt={image.name}
 						className="img-thumbnail mx-1"
 						key={image.name}
+						onClick={() => toggleModal(image, i)}
 					/>
 				))}
 			</div>
