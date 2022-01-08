@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ currentPhoto }) => {
+const Modal = ({ currentPhoto, onClose }) => {
 	//Child component for Parent = PhotoList
 	const { name, category, description, index } = currentPhoto;
 
@@ -13,7 +13,9 @@ const Modal = ({ currentPhoto }) => {
 					src={require(`../../assets/large/${category}/${index}.jpg`)}
 				></img>
 				<p>{description}</p>
-				<button type="button">Close this modal</button>
+				<button type="button" onClick={onClose}>
+					Close this modal
+				</button>
 			</div>
 		</div>
 	);
